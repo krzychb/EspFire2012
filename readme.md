@@ -75,9 +75,9 @@ TBA
 
 ### Functionality
 
-Brightness Control –  https://youtu.be/ymsCrwRauSY 
-Cooling Control – https://youtu.be/tdtMMqTBR4E 
-Sparking Control – https://youtu.be/Tq5M-ZS9FgY
+- Brightness Control –  https://youtu.be/ymsCrwRauSY 
+- Cooling Control – https://youtu.be/tdtMMqTBR4E 
+- Sparking Control – https://youtu.be/Tq5M-ZS9FgY
 
 TBA
 
