@@ -98,9 +98,6 @@ long fireTimer;
 
 void keepFireAlive(void)
 {
-  // Add entropy to random number generator; we use a lot of it.
-  // random16_add_entropy( random());
-
 	if (millis() > fireTimer + 1000 / FRAMES_PER_SECOND)
 	{
 		fireTimer = millis();
