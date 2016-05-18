@@ -3,7 +3,7 @@
 #define LED_PIN     3
 #define COLOR_ORDER GRB
 #define CHIPSET     WS2812B
-#define NUM_LEDS    74
+#define NUM_LEDS    144
 
 #define FRAMES_PER_SECOND 60
 
