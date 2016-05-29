@@ -143,29 +143,29 @@ I will skip description of code to establish Wi-Fi access and setting up a web s
 The lines specific to this library are contained in files [Fire.ino](EspAdafruit_NeoPixel/Fire.ino) and  [Fire.h](EspAdafruit_NeoPixel/Fire.h).
 
 1. Include required in header file [Fire.h](EspAdafruit_NeoPixel/Fire.h):
-```
-#include <Adafruit_NeoPixel.h>
-```
+  ```
+  #include <Adafruit_NeoPixel.h>
+  ```
 
 2. Declaration before NeoPixel strip initialization in [Fire.ino](EspAdafruit_NeoPixel/Fire.ino):
-```
-Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
-```
+  ```
+  Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
+  ```
 
 3. Initialization of NeoPixel strip in function ``` setupFire() ``` :
-```
-  pixels.begin();
-```
+  ```
+    pixels.begin();
+  ```
 
 4. Animation of NeoPixel strip in function ``` keepFireAlive() ``` :
-```
-  for (int i = 0; i < NUM_LEDS; i++)
-  {
-    pixels.setPixelColor(i, pixels.Color(leds[i].r, leds[i].g, leds[i].b));
-  }
-  pixels.setBrightness(brightness);
-  pixels.show();
-```
+  ```
+    for (int i = 0; i < NUM_LEDS; i++)
+    {
+      pixels.setPixelColor(i, pixels.Color(leds[i].r, leds[i].g, leds[i].b));
+    }
+    pixels.setBrightness(brightness);
+    pixels.show();
+  ```
 
 Complete code for this version of application is saved under [EspAdafruit_NeoPixel](EspAdafruit_NeoPixel).
 
@@ -175,32 +175,32 @@ Complete code for this version of application is saved under [EspAdafruit_NeoPix
 The lines specific to this library are contained in files [Fire.ino](EspNeoPixelBus/Fire.ino) and  [Fire.h](EspNeoPixelBus/Fire.h).
 
 1. Include required in header file [Fire.h](EspNeoPixelBus/Fire.h):
-```
-#include <NeoPixelBus.h>
-```
+  ```
+  #include <NeoPixelBus.h>
+  ```
 
 2. Declaration before NeoPixel strip initialization in [Fire.ino](EspNeoPixelBus/Fire.ino):
-```
-NeoPixelBus<NeoGrbFeature, Neo800KbpsMethod> strip(NUM_LEDS, LED_PIN);
-```
+  ```
+  NeoPixelBus<NeoGrbFeature, Neo800KbpsMethod> strip(NUM_LEDS, LED_PIN);
+  ```
 
 3. Initialization of NeoPixel strip in function ``` setupFire() ``` :
-```
-  strip.Begin();
-  strip.Show();
-```
+  ```
+    strip.Begin();
+    strip.Show();
+  ```
 
 4. Animation of NeoPixel strip in function ``` keepFireAlive() ``` :
-```
-  RgbColor pixel;
-  for(int i=0; i<NUM_LEDS; i++)
-  {
-    pixel = RgbColor(leds[i].r, leds[i].g, leds[i].b);
-    pixel.Darken(255-brightness);
-    strip.SetPixelColor(i, pixel);
-  }
-  strip.Show();
-```
+  ```
+    RgbColor pixel;
+    for(int i=0; i<NUM_LEDS; i++)
+    {
+      pixel = RgbColor(leds[i].r, leds[i].g, leds[i].b);
+      pixel.Darken(255-brightness);
+      strip.SetPixelColor(i, pixel);
+    }
+    strip.Show();
+  ```
 Complete code for this version of application is saved under [EspNeoPixelBus](EspNeoPixelBus).
 
 
@@ -209,27 +209,27 @@ Complete code for this version of application is saved under [EspNeoPixelBus](Es
 The lines specific to this library are contained in files [Fire.ino](EspFastLED/Fire.ino) and [Fire.h](EspFastLED/Fire.h).
 
 1. Defines and include required in header file [Fire.h](EspFastLED/Fire.h):
-```
-#define FASTLED_ESP8266_RAW_PIN_ORDER
-#define FASTLED_ALLOW_INTERRUPTS 0
-```
+  ```
+  #define FASTLED_ESP8266_RAW_PIN_ORDER
+  #define FASTLED_ALLOW_INTERRUPTS 0
+  ```
 
 2. Defines required before NeoPixel strip initialization in [Fire.ino](EspFastLED/Fire.ino):
-```
-#define COLOR_ORDER GRB
-#define CHIPSET     WS2812B
-```
+  ```
+  #define COLOR_ORDER GRB
+  #define CHIPSET     WS2812B
+  ```
 
 3. Initialization of NeoPixel strip in function ``` setupFire() ``` :
-```
-  FastLED.addLeds<CHIPSET, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection(TypicalLEDStrip);
-```
+  ```
+    FastLED.addLeds<CHIPSET, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection(TypicalLEDStrip);
+  ```
 
 4. Animation of NeoPixel strip in function ``` keepFireAlive() ``` :
-```
-  FastLED.setBrightness(brightness);
-  FastLED.show();
-```
+  ```
+    FastLED.setBrightness(brightness);
+    FastLED.show();
+  ```
 Complete code for this version of application is saved under [EspFastLED](EspFastLED).
 
 
