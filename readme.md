@@ -324,10 +324,11 @@ If you find any issues with code or descriptions please report them using [Issue
 
 When approaching this testing I was skeptical regarding performance of libraries like EspAdafruit_NeoPixel or FastLED. After all they have been prepared for other Arduino boards well before ESP8266 was even available.
 
-I was happy to conclude that all libraries did it very well. I have not observed any issues with stability of ESP8266. Simulation worked smoothly without any jams, no matter how often I have been accessing web page to update parameters.
+I was happy to conclude that all libraries did it guile well. Simulation worked smoothly without any jams, no matter how often I have been accessing web page to update parameters.
 
-I can recommend each one of tested libraries for use with ESP8266. Note [issue with colors](#espneopixelbus-1) I had when setting low brightness for EspNeoPixelBus library.
+Currently I am [investigating an issue with self resets](https://github.com/FastLED/FastLED/issues/306#issuecomment-222321712) of [EspFastLED](EspFastLED) and [EspAdafruit_NeoPixel](EspAdafruit_NeoPixel) applications. Note [issue with colors](#espneopixelbus-1) I had when setting low brightness for EspNeoPixelBus library.
 
-When making your choice of NeoPixel libary for ESP8266, just select that one that better matches your needs with provided spectrum of functionality, API, documentation, examples, programming style and community that will help you if you encounter issues.
+If you found this review interesting then stay tuned. I will provide an update on results of issue troubleshooting.
+
 
 ![View of tube with Fire2012 simulation](pictures/FireSimulationTube.jpg)
