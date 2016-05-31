@@ -72,7 +72,7 @@ To do the testing I have collected the following hardware:
 - **ESP8266 module** - NodeMCU 1.0 (ESP-12E Module). I have selected this one to make my prototyping more convenient. It has USB / serial interface and power supply on board, so you do not need to provide them separately. You can use any other [typical ESP8266 modules](https://github.com/esp8266/Arduino/blob/master/doc/boards.md#table-of-contents) as well. One single pin GPIO3 (TXD0) is used for driving WS2812B and make sure it is broken out in your module.
 - **Pixel strip power supply** - Adjustable DC-DC power supply CN4015-3.1 together with AC-DC 12V power supply. You should be able to go away with a "wall wart" 5V DC power supply assuming it will match power consumption of your LED strip. To avoid potential issues with 3.3V logic of ESP8266, use an adjustable power supply and lover output voltage below 5V. For more details please check excellent guide ["Powering NeoPixels"](https://learn.adafruit.com/adafruit-neopixel-uberguide/power) by Adafruit.
 - **1000uF/16V capacitor** to improve quality of power supply to the pixel strip - see ["Best Practices"](https://learn.adafruit.com/adafruit-neopixel-uberguide/basic-connections) by Adafruit.
-- **470Ω resistor** to separate ESP8266 and the pixel strip. For more details please check ["Best Practices"](https://learn.adafruit.com/adafruit-neopixel-uberguide/basic-connections) by Adafruit.
+- **470? resistor** to separate ESP8266 and the pixel strip. For more details please check ["Best Practices"](https://learn.adafruit.com/adafruit-neopixel-uberguide/basic-connections) by Adafruit.
 - **Bread board and cables** - see also ["Basic Connections"](https://learn.adafruit.com/adafruit-neopixel-uberguide/basic-connections) by Adafruit.
 
 ![Connection of NeoPixels to ESP8266 - schematic](pictures/EspNeoPixelConnection.png)
@@ -107,7 +107,9 @@ Application prepared for ESP8266 consists of the following files:
 
 1. [Fire.ino](EspFastLED/Fire.ino) together with [Fire.h](EspFastLED/Fire.h) - fire simulation code that primarily contains original Fire2012 application.
 2. [WebInterface.ino](EspFastLED/WebInterface.ino) together with [WebInterface.h](EspFastLED/WebInterface.h) - web interface shown on the [picture above](#fire2012) and Wi-Fi set up routines.
-3. [EspFastLED.ino](EspFastLED/EspFastLED.ino) - a simple main sketch that integrates the above *Fire* and *WebInterface*.
+3. [Emoncms.ino](EspFastLED/Emoncms.ino) together with [Emoncms.h](EspFastLED/Emoncms.h) - routines to post data on [Emoncms.org](Emoncms.org) to monitor application up time, heap size and other parametrs if required. You need to set up an account on Emoncms.org to use it. This is quick and simple - please refer to my [OnlineHumidifier](https://github.com/krzychb/OnlineHumidifier/tree/master/6-Chart#emoncms) repository that explains how to do it.
+4. [EspFastLED.ino](EspFastLED/EspFastLED.ino) - a simple main sketch that integrates the above *Fire*, *WebInterface* and *Emoncms*.
+
 
 EspFire2012 application has been tested with three previously described libraries for NeoPixel control. Respective application versions are available for your review in the following folders:
 
@@ -129,6 +131,7 @@ In ``` loop() ``` the following two functions are repeatedly called:
 
 ```
   server.handleClient();  // respond to commands from web browser
+  logToEmoncms();  // Log aplication performance data to Emoncms.org
   keepFireAlive();  // simulate Fire2012
 ```
 The main sketch file names have been changed to distinguish tested libraries.

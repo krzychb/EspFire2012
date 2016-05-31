@@ -1,22 +1,24 @@
 #include "WebInterface.h"
 #include "Fire.h"
+#include "Emoncms.h"
 
 
 void setup()
 {
-	Serial.begin(115200);
-	Serial.println();
-	Serial.println("Fire2012_FastLED");
+  Serial.begin(115200);
+  Serial.println();
+  Serial.println("Fire2012_FastLED");
 
-	setupWiFi();
-	setupWebServer();
+  setupWiFi();
+  setupWebServer();
 
-	setupFire();
+  setupFire();
 }
 
 
 void loop()
 {
-	server.handleClient();
-	keepFireAlive();
+  server.handleClient();
+  logToEmoncms();
+  keepFireAlive();
 }
