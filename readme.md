@@ -18,6 +18,7 @@ Initially FastLED library has not been working properly for me with Fire2012 and
 
 ## Table of Contents
 - [Introduction](#introduction)
+- [Requirements](#requirements)
 - [Components](#components)
   - [Fire2012](#fire2012)
   - [Hardware](#hardware)
@@ -34,7 +35,22 @@ Initially FastLED library has not been working properly for me with Fire2012 and
   - [EspFastLED](#espfastled-1)
 - [Credits](#credits)
 - [Contribute](#contribute)
+- [Summary](#summary)
 - [Conclusion](#conclusion)
+
+
+## Requirements
+
+This project is to implement [Fire2012](https://blog.kriegsman.org/2014/04/04/fire2012-an-open-source-fire-simulation-for-arduino-and-leds/) application on [ESP8266](https://en.wikipedia.org/wiki/ESP8266) with on-line set up of fire simulation parameters that meets the following requirements:
+
+* Implementation with WS2812B strip with 144 LEDs
+* Simulation at 60 frames/s
+* Accurate reproduction of fire colors
+* On-line set up of brightness, sparking and cooling
+* Implementation with Arduino IDE
+* Up time monitoring on Emoncms.org
+* Stable operation
+* Over the Air (OTA) application updates
 
 
 ## Components
@@ -72,7 +88,7 @@ To do the testing I have collected the following hardware:
 - **ESP8266 module** - NodeMCU 1.0 (ESP-12E Module). I have selected this one to make my prototyping more convenient. It has USB / serial interface and power supply on board, so you do not need to provide them separately. You can use any other [typical ESP8266 modules](https://github.com/esp8266/Arduino/blob/master/doc/boards.md#table-of-contents) as well. One single pin GPIO3 (TXD0) is used for driving WS2812B and make sure it is broken out in your module.
 - **Pixel strip power supply** - Adjustable DC-DC power supply CN4015-3.1 together with AC-DC 12V power supply. You should be able to go away with a "wall wart" 5V DC power supply assuming it will match power consumption of your LED strip. To avoid potential issues with 3.3V logic of ESP8266, use an adjustable power supply and lover output voltage below 5V. For more details please check excellent guide ["Powering NeoPixels"](https://learn.adafruit.com/adafruit-neopixel-uberguide/power) by Adafruit.
 - **1000uF/16V capacitor** to improve quality of power supply to the pixel strip - see ["Best Practices"](https://learn.adafruit.com/adafruit-neopixel-uberguide/basic-connections) by Adafruit.
-- **470? resistor** to separate ESP8266 and the pixel strip. For more details please check ["Best Practices"](https://learn.adafruit.com/adafruit-neopixel-uberguide/basic-connections) by Adafruit.
+- **470 ohm resistor** to separate ESP8266 and the pixel strip. For more details please check ["Best Practices"](https://learn.adafruit.com/adafruit-neopixel-uberguide/basic-connections) by Adafruit.
 - **Bread board and cables** - see also ["Basic Connections"](https://learn.adafruit.com/adafruit-neopixel-uberguide/basic-connections) by Adafruit.
 
 ![Connection of NeoPixels to ESP8266 - schematic](pictures/EspNeoPixelConnection.png)
@@ -321,6 +337,22 @@ Software for this project has been prepared thanks to great work of the followin
 Feel free to contribute to the project in any way you like!
 
 If you find any issues with code or descriptions please report them using [Issues](https://github.com/krzychb/EspFire2012/issues) tab above.
+
+
+## Summary
+
+This project is well advanced with the following results for each version of application so far. Results are updated as the project is progressing.
+
+| Application / Requirements | [EspAdafruit_NeoPixel](EspAdafruit_NeoPixel) | [EspNeoPixelBus](EspNeoPixelBus) | [EspFastLED](EspFastLED) |
+| --- | --- | --- | --- |
+| Implementation with WS2812B strip with 144 LEDs | ![Passed](pictures/Result_Passed.png) | ![Passed](pictures/Result_Passed.png) | ![Passed](pictures/Result_Passed.png) |
+| Simulation at 60 frames/s | ![Passed](pictures/Result_Passed.png) | ![Passed](pictures/Result_Passed.png) | ![Passed](pictures/Result_Passed.png) |
+| Accurate reproduction of fire colors | ![Passed](pictures/Result_Passed.png) | issues at low brightness | ![Passed](pictures/Result_Passed.png) |
+| On-line set up of brightness, sparking and cooling | ![Passed](pictures/Result_Passed.png)  | ![Passed](pictures/Result_Passed.png)  | ![Passed](pictures/Result_Passed.png)  |
+| Implementation with Arduino IDE | ![Passed](pictures/Result_Passed.png)  | ![Passed](pictures/Result_Passed.png)  | ![Passed](pictures/Result_Passed.png)  |
+| Up time monitoring on Emoncms.org | ![Passed](pictures/Result_Passed.png)  | ![Passed](pictures/Result_Passed.png)  | ![Passed](pictures/Result_Passed.png)  |
+| Stable operation | about 2 self-resets per 24h | ![Passed](pictures/Result_Passed.png)  | about 3 self-resets per 24h |
+| Over the Air (OTA) application updates | TBD | TBD | TBD |
 
 
 ## Conclusion
