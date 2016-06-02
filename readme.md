@@ -33,6 +33,7 @@ Initially FastLED library has not been working properly for me with Fire2012 and
   - [EspAdafruit_NeoPixel](#espadafruit_neopixel-1)
   - [EspNeoPixelBus](#espneopixelbus-1)
   - [EspFastLED](#espfastled-1)
+  - [Stability](#stability)
 - [Credits](#credits)
 - [Contribute](#contribute)
 - [Summary](#summary)
@@ -317,6 +318,37 @@ The issue turned out to be very simple to resolve. Before ``` #include <FastLED.
 Otherwise data transmission to the strip may be broken on random basis by interrupts. This depends on how many LEDs the NeoPixel strip has.
 
 This library attracted me with detailed [documentation](https://github.com/FastLED/FastLED/wiki/Overview), active [community](https://plus.google.com/communities/109127054924227823508) on Google+, several [code examples](https://github.com/FastLED/FastLED/tree/master/examples) and [demos/effects](https://gist.github.com/kriegsman).
+
+
+### Stability
+
+As [suggested by @TheAustrian](https://github.com/FastLED/FastLED/issues/306#issuecomment-222321712) I let the applications running for a longer time and noticed unexpected self-resets. 
+
+To identify the root cause of this issue, I have loaded each application version on a separate ESP module, added routines to post ``` Up Time ``` and free ``` Heap Size ``` on [Emoncms.org](https://emoncms.org/dashboard/view?id=29419) and started checking the [plots](https://emoncms.org/dashboard/view?id=29419).
+
+The cause of resets may be s/w, h/w or both. To eliminate h/w as the source of issue, I decided to move the s/w around using the same three modules in sequence below.
+
+| EspFire2012 Application | Test 1 | Test 2 | Test 3 |
+| --- | --- | --- | --- |
+| [EspFastLED](EspFastLED) | ESP A | ESP C | ESP B |
+| [EspNeoPixelBus](EspNeoPixelBus) | ESP B | ESP A | ESP C |
+| [EspAdafruit_NeoPixel](EspAdafruit_NeoPixel) | ESP C | ESP B | ESP A |
+
+Test started on 29-May-2015 at about 11:20 CET and ended on 2-Jun-2016 at 19:00 CET. Module changes were done on 30-May at 22.50 CET and on 1-Jun at 8:00 CET. Result is shown below:
+
+![EspFire2012 Stability Testing Plots](pictures/EspFire2012_20150602.png)
+
+During test period I have recorded the following number of resets:
+
+| EspFire 2012 Application | Number of Self Resets |
+| --- | --- |
+| [EspFastLED](EspFastLED) | 10 |
+| [EspNeoPixelBus](EspNeoPixelBus) | 0 |
+| [EspAdafruit_NeoPixel](EspAdafruit_NeoPixel) | 6 |
+
+Each version of application was running on each one of the three ESP modules. There were no any self-resets of [EspNeoPixelBus](EspNeoPixelBus). Therefore with pretty high certainty I can eliminate h/w as the potential source of issues.
+
+The next step is to troubleshoot the s/w.
 
 
 ## Credits
