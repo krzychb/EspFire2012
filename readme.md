@@ -1,4 +1,4 @@
-# EspFire2012
+# EspFire2012 [![Build Status](https://travis-ci.org/krzychb/EspFire2012.svg?branch=master)](https://travis-ci.org/krzychb/EspFire2012)
 
 Testing of NeoPixel libraries to do fire simulation with Fire2012 and ESP8266 using [esp8266/Arduino](https://github.com/esp8266/Arduino)
 
