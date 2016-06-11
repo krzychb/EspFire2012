@@ -216,7 +216,7 @@ The lines specific to this library are contained in files [Fire.ino](EspNeoPixel
     for(int i=0; i<NUM_LEDS; i++)
     {
       pixel = RgbColor(leds[i].r, leds[i].g, leds[i].b);
-      pixel.Darken(255-brightness);
+      pixel = RgbColor::LinearBlend(pixel, RgbColor(0, 0, 0), (255 - brightness)/255.0);
       strip.SetPixelColor(i, pixel);
     }
     strip.Show();
@@ -302,7 +302,11 @@ I believe this library is the easiest to start playing with NeoPixels.
 
 Library by Makuna (Michael Miller) also worked for me out of the box.
 
-I have observed different handling of brightness control comparing to the other two libraries. For low brightness values the color spectrum looked like shifted to yellow and red colors - white sparks were not visible at all.
+I cound not find a method to set brighness globally like in other libraries and had to do it individually for each pixel as below:
+
+  ```
+      pixel = RgbColor::LinearBlend(pixel, RgbColor(0, 0, 0), (255 - brightness)/255.0);
+  ```
 
 Adarfuit credited Michael Miller for ESP8266 work for the NeoPixelBus library in their [esp8266.c](https://github.com/adafruit/Adafruit_NeoPixel/blob/master/esp8266.c) file that is part of Adafruit_NeoPixel library.
 
@@ -348,7 +352,7 @@ During test period I have recorded the following number of resets:
 
 Each version of application was running on each one of the three ESP modules. There were no any self-resets of [EspNeoPixelBus](EspNeoPixelBus). Therefore with pretty high certainty I can eliminate h/w as the potential source of issues.
 
-The next step is to troubleshoot the s/w.
+The next step is to troubleshoot the s/w. Please check [this issue report](https://github.com/FastLED/FastLED/issues/306#issuecomment-222321712) for details. I will update this repository as well once I am done with testing
 
 
 ## Credits
@@ -377,23 +381,23 @@ This project is well advanced with the following results for each version of app
 
 | Application / Requirements | [EspAdafruit_NeoPixel](EspAdafruit_NeoPixel) | [EspNeoPixelBus](EspNeoPixelBus) | [EspFastLED](EspFastLED) |
 | --- | --- | --- | --- |
-| Implementation with WS2812B strip with 144 LEDs | ![Passed](pictures/Result_Passed.png) | ![Passed](pictures/Result_Passed.png) | ![Passed](pictures/Result_Passed.png) |
-| Simulation at 60 frames/s | ![Passed](pictures/Result_Passed.png) | ![Passed](pictures/Result_Passed.png) | ![Passed](pictures/Result_Passed.png) |
-| Accurate reproduction of fire colors | ![Passed](pictures/Result_Passed.png) | issues at low brightness | ![Passed](pictures/Result_Passed.png) |
+| Implementation for WS2812B strip with 144 LEDs | ![Passed](pictures/Result_Passed.png) | ![Passed](pictures/Result_Passed.png) | ![Passed](pictures/Result_Passed.png) |
+| Simulation at 60 frames/s | TBC | TBC | TBC |
+| Accurate reproduction of fire colors | ![Passed](pictures/Result_Passed.png) | ![Passed](pictures/Result_Passed.png)  | ![Passed](pictures/Result_Passed.png) |
 | On-line set up of brightness, sparking and cooling | ![Passed](pictures/Result_Passed.png)  | ![Passed](pictures/Result_Passed.png)  | ![Passed](pictures/Result_Passed.png)  |
 | Implementation with Arduino IDE | ![Passed](pictures/Result_Passed.png)  | ![Passed](pictures/Result_Passed.png)  | ![Passed](pictures/Result_Passed.png)  |
 | Up time monitoring on Emoncms.org | ![Passed](pictures/Result_Passed.png)  | ![Passed](pictures/Result_Passed.png)  | ![Passed](pictures/Result_Passed.png)  |
 | Stable operation | about 2 self-resets per 24h | ![Passed](pictures/Result_Passed.png)  | about 3 self-resets per 24h |
-| Over the Air (OTA) application updates | TBD | TBD | TBD |
+| Over the Air (OTA) application updates | TBC | TBC | TBC |
 
 
 ## Conclusion
 
 When approaching this testing I was skeptical regarding performance of libraries like EspAdafruit_NeoPixel or FastLED. After all they have been prepared for other Arduino boards well before ESP8266 was even available.
 
-I was happy to conclude that all libraries did it guile well. Simulation worked smoothly without any jams, no matter how often I have been accessing web page to update parameters.
+Basing on tests so far, all libraries did it quite well. Simulation worked smoothly without any jams, no matter how often I have been accessing web page to update parameters.
 
-Currently I am [investigating an issue with self resets](https://github.com/FastLED/FastLED/issues/306#issuecomment-222321712) of [EspFastLED](EspFastLED) and [EspAdafruit_NeoPixel](EspAdafruit_NeoPixel) applications. Note [issue with colors](#espneopixelbus-1) I had when setting low brightness for EspNeoPixelBus library.
+Currently I am [investigating an issue with self resets](https://github.com/FastLED/FastLED/issues/306#issuecomment-222321712) of [EspFastLED](EspFastLED) and [EspAdafruit_NeoPixel](EspAdafruit_NeoPixel) applications.
 
 If you found this review interesting then stay tuned. I will provide an update on results of issue troubleshooting.
 

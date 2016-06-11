@@ -111,7 +111,7 @@ void keepFireAlive(void)
     for (int i = 0; i < NUM_LEDS; i++)
     {
       pixel = RgbColor(leds[i].r, leds[i].g, leds[i].b);
-      pixel.Darken(255 - brightness);
+      pixel = RgbColor::LinearBlend(pixel, RgbColor(0, 0, 0), (255 - brightness)/255.0);
       strip.SetPixelColor(i, pixel);
     }
     strip.Show();

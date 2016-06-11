@@ -5,7 +5,7 @@ WiFiClient client;
 #define UPDATE_PERIOD 60000
 #define TIMEOUT_PERIOD 1000
 const char* dataHost = "emoncms.org";
-const char* apiKey = "be71f01adf17bfa1a85118923c0140b4";
+const char* apiKey = "9a3e3c9cf65c70a597097b065dcb24e3";
 long dataLogTimer;
 
 #ifdef ESP8266
